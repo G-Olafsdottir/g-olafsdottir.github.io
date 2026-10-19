@@ -1,0 +1,127 @@
+/* Gudlaug (Gulla) Olafsdottir — personal academic site
+   One shared stylesheet. Colours and spacing are set once here. */
+
+@font-face { font-family: "Hanken Grotesk"; font-style: normal; font-weight: 400; font-display: swap; src: url("assets/hanken-grotesk-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Hanken Grotesk"; font-style: italic; font-weight: 400; font-display: swap; src: url("assets/hanken-grotesk-latin-400-italic.woff2") format("woff2"); }
+@font-face { font-family: "Hanken Grotesk"; font-style: normal; font-weight: 500; font-display: swap; src: url("assets/hanken-grotesk-latin-500-normal.woff2") format("woff2"); }
+@font-face { font-family: "Hanken Grotesk"; font-style: normal; font-weight: 600; font-display: swap; src: url("assets/hanken-grotesk-latin-600-normal.woff2") format("woff2"); }
+
+:root {
+  --paper: #fbfaf7;
+  --ink: #1f2120;
+  --muted: #6c6f6b;
+  --rule: #e2e0da;
+  --link: #2c4a5a;
+  --link-hover: #182f3b;
+  --band: #2b2d2f;
+  --band-ink: #ffffff;
+  --band-muted: rgba(255, 255, 255, .86);
+  --measure: 50rem;
+  --gutter: clamp(1.25rem, 5vw, 3rem);
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Hanken Grotesk", -apple-system, "Helvetica Neue", Arial, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  font-weight: 400;
+}
+
+a { color: var(--link); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: rgba(44, 74, 90, .35); }
+a:hover { color: var(--link-hover); text-decoration-color: currentColor; }
+a:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; border-radius: 2px; }
+
+.wrap { max-width: var(--measure); margin: 0 auto; padding: 0 var(--gutter); }
+
+/* Header band and navigation */
+.site-header {
+  background-color: var(--band);
+  background-image: url("assets/banner-mountains.jpg");
+  background-size: cover;
+  background-position: center 35%;
+  color: var(--band-ink);
+  min-height: clamp(11rem, 21vw, 16rem);
+}
+.site-header .bar {
+  background: rgba(16, 18, 20, .66);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  padding: 1.15rem 0;
+}
+@media (max-width: 40rem) {
+  .site-header { min-height: 17.5rem; background-position: 30% center; }
+}
+.site-header .bar .wrap { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .75rem 2rem; }
+.site-name { font-size: 1.05rem; font-weight: 500; letter-spacing: .01em; color: var(--band-ink); text-decoration: none; }
+.site-name:hover { color: var(--band-ink); }
+
+nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .35rem 1.4rem; }
+nav a { font-size: .95rem; color: var(--band-muted); text-decoration: none; padding: .2rem 0; border-bottom: 1px solid transparent; }
+nav a:hover { color: var(--band-ink); }
+nav a[aria-current="page"] { color: var(--band-ink); border-bottom-color: var(--band-ink); }
+.site-header a:focus-visible { outline-color: var(--band-ink); }
+
+/* Main */
+main { padding: clamp(3rem, 9vw, 5.5rem) 0 4rem; }
+
+h1 { font-size: clamp(1.9rem, 5vw, 2.45rem); font-weight: 400; line-height: 1.2; letter-spacing: -.012em; margin: 0 0 .6rem; }
+h2 { font-size: .8rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 3.5rem 0 1.25rem; }
+h3 { font-size: 1.0625rem; font-weight: 500; margin: 2rem 0 .4rem; }
+p { margin: 0 0 1.1rem; }
+
+.lede { font-size: 1.2rem; line-height: 1.6; color: var(--ink); }
+.role { color: var(--muted); margin: 0 0 2.25rem; }
+.muted { color: var(--muted); }
+.small { font-size: .925rem; }
+
+/* About page: photo beside text on wide screens, stacked on phones */
+.intro { display: grid; grid-template-columns: 1fr; gap: 2.25rem; align-items: start; }
+.intro img { width: 100%; max-width: 15rem; height: auto; display: block; border-radius: 2px; filter: saturate(.92); }
+@media (min-width: 46rem) {
+  .intro { grid-template-columns: 13.5rem 1fr; gap: 3.25rem; }
+  .intro img { max-width: none; }
+}
+
+/* Lists of entries: publications, roles, courses */
+.entries { list-style: none; margin: 0; padding: 0; }
+.entries li { padding: 1rem 0; border-top: 1px solid var(--rule); }
+.entries li:last-child { border-bottom: 1px solid var(--rule); }
+.entries .title { display: block; }
+.entries .meta { display: block; color: var(--muted); font-size: .95rem; margin-top: .15rem; }
+
+.cite { font-size: 1rem; }
+.cite .venue { font-style: italic; }
+.cite .doi { font-size: .9rem; white-space: nowrap; }
+
+/* Dated rows: year column + description */
+.dated { list-style: none; margin: 0; padding: 0; }
+.dated li { display: grid; grid-template-columns: 1fr; gap: .1rem; padding: .85rem 0; border-top: 1px solid var(--rule); }
+.dated li:last-child { border-bottom: 1px solid var(--rule); }
+.dated .when { color: var(--muted); font-size: .925rem; font-variant-numeric: tabular-nums; }
+@media (min-width: 40rem) {
+  .dated li { grid-template-columns: 7.5rem 1fr; gap: 1.5rem; }
+  .dated .when { padding-top: .1rem; }
+}
+
+.plain { padding-left: 1.1rem; margin: .25rem 0 1rem; }
+.plain li { margin: .2rem 0; }
+
+address { font-style: normal; }
+
+/* Footer */
+.site-footer { border-top: 1px solid var(--rule); padding: 1.75rem 0 3rem; color: var(--muted); font-size: .875rem; }
+.site-footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem 1.5rem; }
+.site-footer p { margin: 0; }
+
+/* LinkedIn / Bluesky logos */
+.social { display: inline-flex; gap: 1rem; align-items: center; }
+.social a, .icon-link { color: var(--muted); display: inline-flex; padding: .15rem; text-decoration: none; }
+.social a:hover, .icon-link:hover { color: var(--ink); }
+.social-about { margin-top: .25rem; }
