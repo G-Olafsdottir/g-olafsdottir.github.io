@@ -16,7 +16,7 @@
   --band: #2b2d2f;
   --band-ink: #ffffff;
   --band-muted: rgba(255, 255, 255, .86);
-  --measure: 50rem;
+  --measure: 76rem;
   --gutter: clamp(1.25rem, 5vw, 3rem);
 }
 
@@ -55,8 +55,20 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; border-ra
   backdrop-filter: blur(6px);
   padding: 1.15rem 0;
 }
+/* Phone: solid menu bar, with the full panorama shown uncropped underneath */
 @media (max-width: 40rem) {
-  .site-header { min-height: 17.5rem; background-position: 30% center; }
+  .site-header {
+    min-height: 0;
+    background-color: #16181a;
+    background-size: 100% auto;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    padding-bottom: 25vw;
+  }
+  .site-header .bar { background: #16181a; -webkit-backdrop-filter: none; backdrop-filter: none; padding: 1.15rem 0 1rem; }
+  .site-header .bar .wrap { display: block; }
+  .site-name { display: block; margin-bottom: .6rem; }
+  .site-header nav ul { display: grid; grid-template-columns: 1fr 1fr; gap: .2rem 1.5rem; }
 }
 .site-header .bar .wrap { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .75rem 2rem; }
 .site-name { font-size: 1.05rem; font-weight: 500; letter-spacing: .01em; color: var(--band-ink); text-decoration: none; }
@@ -81,12 +93,25 @@ p { margin: 0 0 1.1rem; }
 .muted { color: var(--muted); }
 .small { font-size: .925rem; }
 
+/* Wide screens: section labels in a left column, content to the right */
+main .wrap > .lede { max-width: 50rem; }
+@media (min-width: 64rem) {
+  main .wrap { display: grid; grid-template-columns: 15rem minmax(0, 46rem); column-gap: 4.5rem; align-items: start; }
+  main .wrap > * { grid-column: 2; }
+  main .wrap > h1, main .wrap > .lede, main .wrap > .intro { grid-column: 1 / -1; }
+  main .wrap > h2 { grid-column: 1; margin: 3.5rem 0 0; padding-top: 1.15rem; }
+  main .wrap > h2 + * { margin-top: 3.5rem; }
+}
+
 /* About page: photo beside text on wide screens, stacked on phones */
 .intro { display: grid; grid-template-columns: 1fr; gap: 2.25rem; align-items: start; }
 .intro img { width: 100%; max-width: 15rem; height: auto; display: block; border-radius: 2px; filter: saturate(.92); }
 @media (min-width: 46rem) {
-  .intro { grid-template-columns: 13.5rem 1fr; gap: 3.25rem; }
+  .intro { grid-template-columns: 13.5rem minmax(0, 44rem); gap: 3.25rem; }
   .intro img { max-width: none; }
+}
+@media (min-width: 64rem) {
+  .intro { grid-template-columns: 15rem minmax(0, 46rem); gap: 4.5rem; }
 }
 
 /* Lists of entries: publications, roles, courses */
@@ -109,6 +134,14 @@ p { margin: 0 0 1.1rem; }
   .dated li { grid-template-columns: 7.5rem 1fr; gap: 1.5rem; }
   .dated .when { padding-top: .1rem; }
 }
+
+/* Student quotes */
+.quotes { list-style: none; margin: 0; padding: 0; }
+.quotes li { padding: 1.25rem 0; border-top: 1px solid var(--rule); }
+.quotes li:last-child { border-bottom: 1px solid var(--rule); }
+.quotes blockquote { margin: 0; }
+.quotes blockquote p { margin: 0; font-style: italic; font-size: 1.05rem; line-height: 1.6; }
+.quotes .quote-source { margin: .4rem 0 0; color: var(--muted); font-size: .9rem; }
 
 .plain { padding-left: 1.1rem; margin: .25rem 0 1rem; }
 .plain li { margin: .2rem 0; }
